@@ -16,7 +16,7 @@ class ColorFieldWidget(TextInput):
                     (function($){
                         $(document).ready(function(){
                             $('#%s').each(function(i, elm){
-                                # Make sure html5 color element is not replaced
+                                // Make sure html5 color element is not replaced
                                 if (elm.type != 'color') $(elm).colorPicker();
                             });
                         });
