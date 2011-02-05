@@ -1,13 +1,22 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.forms.widgets import TextInput
 from django.utils.safestring import SafeUnicode
+
+try:
+    url = settings.STATIC_URL
+except AttributeError:
+    try:
+        url = settings.MEDIA_URL
+    except AttributeError:
+        url = ''
 
 class ColorFieldWidget(TextInput):
     class Media:
         css = {
-            'all': ('css/colorful/colorPicker.css',)
+            'all': ("%scss/colorful/colorPicker.css" % url,)
         }
-        js  = ('js/colorful/jquery.colorPicker.js',)
+        js  = ("%sjs/colorful/jQuery.colorPicker.js" % url,)
     
     input_type = 'color'
     
