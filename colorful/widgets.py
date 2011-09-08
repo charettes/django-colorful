@@ -14,9 +14,9 @@ except AttributeError:
 class ColorFieldWidget(TextInput):
     class Media:
         css = {
-            'all': ("%s/colorful/colorPicker.css" % url,)
+            'all': ("%scolorful/colorPicker.css" % url,)
         }
-        js  = ("%s/colorful/jQuery.colorPicker.js" % url,)
+        js  = ("%scolorful/jQuery.colorPicker.js" % url,)
 
     input_type = 'color'
 
