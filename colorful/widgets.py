@@ -17,13 +17,13 @@ class ColorFieldWidget(TextInput):
             'all': ("%scss/colorful/colorPicker.css" % url,)
         }
         js  = ("%sjs/colorful/jQuery.colorPicker.js" % url,)
-    
+
     input_type = 'color'
-    
+
     def render_script(self, id):
         return u'''<script type="text/javascript">
                     (function($){
-                        $(document).ready(function(){
+                        $(window).load(function(){
                             $('#%s').each(function(i, elm){
                                 // Make sure html5 color element is not replaced
                                 if (elm.type != 'color') $(elm).colorPicker();
