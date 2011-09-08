@@ -28,3 +28,6 @@ RCS
 RCSLOG
 SCCS
 _$*
+build/
+dist/
+django_colorful.egg-info
