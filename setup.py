@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 from setuptools import setup, find_packages
 
@@ -14,8 +14,8 @@ setup(
     url=github_url,
     author='Simon Charette',
     author_email='charette.s@gmail.com',
-    install_requires=[
-        'Django>=1.2',
+    requires=[
+        'Django (>=1.2)',
     ],
     packages=find_packages(),
     include_package_data=True,
