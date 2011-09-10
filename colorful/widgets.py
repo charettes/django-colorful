@@ -23,13 +23,13 @@ class ColorFieldWidget(TextInput):
     def render_script(self, id):
         return u'''<script type="text/javascript">
                     (function($){
-                        $(window).load(function(){
+                        $(document).ready(function(){
                             $('#%s').each(function(i, elm){
                                 // Make sure html5 color element is not replaced
                                 if (elm.type != 'color') $(elm).colorPicker();
                             });
                         });
-                    })(jQuery || django.jQuery);
+                    })('django' in window ? django.jQuery: jQuery);
                 </script>
                 ''' % id
 
