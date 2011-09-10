@@ -14,12 +14,12 @@ except AttributeError:
 class ColorFieldWidget(TextInput):
     class Media:
         css = {
-            'all': ("%scss/colorful/colorPicker.css" % url,)
+            'all': ("%scolorful/colorPicker.css" % url,)
         }
-        js  = ("%sjs/colorful/jQuery.colorPicker.js" % url,)
-    
+        js  = ("%scolorful/jQuery.colorPicker.js" % url,)
+
     input_type = 'color'
-    
+
     def render_script(self, id):
         return u'''<script type="text/javascript">
                     (function($){
@@ -29,7 +29,7 @@ class ColorFieldWidget(TextInput):
                                 if (elm.type != 'color') $(elm).colorPicker();
                             });
                         });
-                    })(jQuery || django.jQuery);
+                    })('django' in window ? django.jQuery: jQuery);
                 </script>
                 ''' % id
 
