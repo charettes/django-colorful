@@ -5,7 +5,7 @@ from django.forms.fields import RegexField
 
 from widgets import ColorFieldWidget
 
-RGB_REGEX = re.compile('^#?([0-F]{3}|[0-F]{6})$', re.IGNORECASE)
+RGB_REGEX = re.compile('^#?((?:[0-F]{3}){1,2})$', re.IGNORECASE)
 
 class RGBColorField(CharField):
 
