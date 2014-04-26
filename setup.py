@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-from .colorful import VERSION
+from colorful import VERSION
 
 github_url = 'https://github.com/charettes/django-colorful'
 
