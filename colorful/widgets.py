@@ -21,7 +21,7 @@ class ColorFieldWidget(TextInput):
     input_type = 'color'
 
     def render_script(self, id):
-        return '''<script type="text/javascript">
+        return u'''<script type="text/javascript">
                     (function($){
                         $(document).ready(function(){
                             $('#%s').each(function(i, elm){
@@ -37,4 +37,4 @@ class ColorFieldWidget(TextInput):
         if not 'id' in attrs:
             attrs['id'] = "#id_%s" % name
         render = super(ColorFieldWidget, self).render(name, value, attrs)
-        return SafeUnicode("%s%s" % (render, self.render_script(attrs['id'])))
+        return SafeUnicode(u"%s%s" % (render, self.render_script(attrs['id'])))
