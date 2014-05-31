@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from setuptools import setup, find_packages
 
 from .colorful import VERSION
@@ -15,7 +13,8 @@ setup(
     author='Simon Charette',
     author_email='charette.s@gmail.com',
     requires=[
-        'Django (>=1.2)',
+        'Django (>=1.5)',
+        'South (>=0.8)',
     ],
     packages=find_packages(),
     include_package_data=True,
@@ -30,5 +29,12 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules'
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
     ],
 )
