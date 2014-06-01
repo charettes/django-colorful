@@ -1,5 +1,7 @@
 django-colorful
-================
+===============
+
+![Travis build status](https://travis-ci.org/charettes/django-colorful.png?branch=master)
 
 **django-colorful** is an extension to the Django web framework that provides
 database and form color fields (only RGB atm).
