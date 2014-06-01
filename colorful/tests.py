@@ -2,11 +2,12 @@ from __future__ import unicode_literals
 
 import sys
 
+from django import forms
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.test import TestCase
 
-from .fields import RGBColorField
+from .fields import RGBColorField, RGB_REGEX
 from .widgets import ColorFieldWidget
 
 
@@ -47,6 +48,12 @@ class TestRBGColorField(TestCase):
         field_class = getattr(sys.modules[module], cls)
         field_instance = field_class(*args, **kwargs)
         self.assertIsInstance(field_instance, self.field.__class__)
+
+    def test_formfield(self):
+        formfield = self.field.formfield()
+        self.assertIsInstance(formfield, forms.RegexField)
+        self.assertIsInstance(formfield.widget, ColorFieldWidget)
+        self.assertEqual(formfield.regex, RGB_REGEX)
 
 
 class TestColorFieldWidget(TestCase):
