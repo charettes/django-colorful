@@ -5,10 +5,18 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
+
 env:
   - DJANGO_VERSION=1.5.8
   - DJANGO_VERSION=1.6.5
+
 install:
   - pip install -q Django==$DJANGO_VERSION
   - pip install -q south==0.8.4
+  - pip install -q coveralls
+
 script: python -Wonce runtests.py
+
+after_success:
+  - coverage report -m
+  - coveralls
