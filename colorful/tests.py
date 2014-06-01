@@ -1,9 +1,13 @@
+from __future__ import unicode_literals
+
+import sys
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.test import TestCase
 
-from .widgets import ColorFieldWidget
 from .fields import RGBColorField
+from .widgets import ColorFieldWidget
 
 
 class TestModel(models.Model):
@@ -36,6 +40,13 @@ class TestRBGColorField(TestCase):
         self.assertEqual('ABCDEF', self.field.clean('ABCDEF', None))
         self.assertEqual('123', self.field.clean('123', None))
         self.assertEqual('ABC', self.field.clean('ABC', None))
+
+    def test_south_field_triple(self):
+        path, args, kwargs = self.field.south_field_triple()
+        module, cls = path.rsplit('.', 1)
+        field_class = getattr(sys.modules[module], cls)
+        field_instance = field_class(*args, **kwargs)
+        self.assertIsInstance(field_instance, self.field.__class__)
 
 
 class TestColorFieldWidget(TestCase):

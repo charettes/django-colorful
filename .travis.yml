@@ -11,7 +11,7 @@ env:
   - DJANGO="Django>=1.5,<1.6"
   - DJANGO="Django>=1.6,<1.7"
 
-install: pip install -q $DJANGO South coveralls
+install: pip install -q $DJANGO coveralls
 
 script: python -Wonce `which coverage` run runtests.py
 

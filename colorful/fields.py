@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+
 import re
 
 from django.core.validators import RegexValidator
@@ -27,8 +28,5 @@ class RGBColorField(CharField):
         })
         return super(RGBColorField, self).formfield(**kwargs)
 
-try:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ["^colorful\.fields\.RGBColorField"])
-except ImportError:
-    pass
+    def south_field_triple(self):
+        return 'colorful.fields.RGBColorField', (), {}
