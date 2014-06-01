@@ -1,10 +1,12 @@
 from __future__ import unicode_literals
 import re
+
+from django.core.validators import RegexValidator
 from django.db.models import CharField
 from django.forms.fields import RegexField
-from django.core.validators import RegexValidator
 
 from .widgets import ColorFieldWidget
+
 
 RGB_REGEX = re.compile('^#?((?:[0-F]{3}){1,2})$', re.IGNORECASE)
 
