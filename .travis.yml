@@ -11,4 +11,4 @@ env:
 install:
   - pip install -q Django==$DJANGO_VERSION
   - pip install -q south==0.8.4
-script: python runtests.py
+script: python -Wonce runtests.py
