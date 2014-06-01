@@ -1,15 +1,19 @@
+from __future__ import unicode_literals
 import re
 
+from django.core.validators import RegexValidator
 from django.db.models import CharField
 from django.forms.fields import RegexField
 
 from widgets import ColorFieldWidget
 
+
 RGB_REGEX = re.compile('^#?((?:[0-F]{3}){1,2})$', re.IGNORECASE)
 
-class RGBColorField(CharField):
 
+class RGBColorField(CharField):
     widget = ColorFieldWidget
+    default_validators = [RegexValidator(regex=RGB_REGEX)]
 
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 7
@@ -17,10 +21,10 @@ class RGBColorField(CharField):
 
     def formfield(self, **kwargs):
         kwargs.update({
-                       'form_class': RegexField,
-                       'widget': self.widget,
-                       'regex': RGB_REGEX
-                       })
+            'form_class': RegexField,
+            'widget': self.widget,
+            'regex': RGB_REGEX
+        })
         return super(RGBColorField, self).formfield(**kwargs)
 
 try:
