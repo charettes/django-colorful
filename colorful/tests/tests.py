@@ -1,9 +1,15 @@
 from __future__ import unicode_literals
 
 import sys
+# TODO: Remove when support for Python 2.6 is dropped
+if sys.version_info >= (2, 7):
+    from unittest import skipUnless
+else:
+    from django.utils.unittest import skipUnless
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.test import SimpleTestCase
 
 from ..fields import RGBColorField, RGB_REGEX
@@ -36,6 +42,16 @@ class TestRBGColorField(SimpleTestCase):
 
     def test_south_field_triple(self):
         path, args, kwargs = self.field.south_field_triple()
+        module, cls = path.rsplit('.', 1)
+        field_class = getattr(sys.modules[module], cls)
+        field_instance = field_class(*args, **kwargs)
+        self.assertIsInstance(field_instance, self.field.__class__)
+
+    @skipUnless(hasattr(models.Field, 'deconstruct'),
+                'Unavailable field deconstruction.')
+    def test_deconstruct(self):
+        name, path, args, kwargs = self.field.deconstruct()
+        self.assertIsNone(name)
         module, cls = path.rsplit('.', 1)
         field_class = getattr(sys.modules[module], cls)
         field_instance = field_class(*args, **kwargs)
