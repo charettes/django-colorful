@@ -4,15 +4,10 @@ import sys
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.db import models
 from django.test import TestCase
 
-from .fields import RGBColorField, RGB_REGEX
-from .widgets import ColorFieldWidget
-
-
-class TestModel(models.Model):
-    color = RGBColorField()
+from ..fields import RGBColorField, RGB_REGEX
+from ..widgets import ColorFieldWidget
 
 
 class TestRBGColorField(TestCase):

@@ -25,7 +25,7 @@ matrix:
 
 install: pip install -q $DJANGO flake8 coveralls
 
-script: python -Wonce `which coverage` run runtests.py
+script: python -R -Wonce `which coverage` run `which django-admin.py` test colorful --pythonpath=`pwd` --settings=colorful.tests.settings -v2
 
 after_success:
   - flake8
