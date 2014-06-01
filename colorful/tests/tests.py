@@ -4,20 +4,17 @@ import sys
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import SimpleTestCase
 
 from ..fields import RGBColorField, RGB_REGEX
 from ..widgets import ColorFieldWidget
 
 
-class TestRBGColorField(TestCase):
+class TestRBGColorField(SimpleTestCase):
     def setUp(self):
         self.field = RGBColorField()
 
     def test_validate_fails(self):
-        """Test fails on:
-        Empty, too short, invalid chars, too long
-        """
         self.assertRaises(ValidationError, self.field.clean, '', None)
         self.assertRaises(ValidationError, self.field.clean, '12', None)
         self.assertRaises(ValidationError, self.field.clean, 'GGGGGG', None)
@@ -51,7 +48,7 @@ class TestRBGColorField(TestCase):
         self.assertEqual(formfield.regex, RGB_REGEX)
 
 
-class TestColorFieldWidget(TestCase):
+class TestColorFieldWidget(SimpleTestCase):
     def test_render_with_id(self):
         widget = ColorFieldWidget()
         self.assertIn('<input id="id_color" name="test" type="color" value="#123456" />',
