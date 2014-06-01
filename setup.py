@@ -14,8 +14,7 @@ setup(
     author='Simon Charette',
     author_email='charette.s@gmail.com',
     requires=[
-        'Django (>=1.5)',
-        'South (>=0.8)',
+        'Django>=1.5',
     ],
     packages=find_packages(),
     include_package_data=True,
