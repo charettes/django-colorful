@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
 from django.conf import settings
 from django.forms.widgets import TextInput
 try:
@@ -19,9 +20,9 @@ except AttributeError:
 class ColorFieldWidget(TextInput):
     class Media:
         css = {
-            'all': ("%scolorful/colorPicker.css" % url)
+            'all': ("%scolorful/colorPicker.css" % url, )
         }
-        js = ("%scolorful/jQuery.colorPicker.js" % url)
+        js = ("%scolorful/jQuery.colorPicker.js" % url, )
 
     input_type = 'color'
 
