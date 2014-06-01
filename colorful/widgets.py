@@ -28,7 +28,7 @@ class ColorFieldWidget(TextInput):
                 ''' % id
 
     def render(self, name, value, attrs={}):
-        if not 'id' in attrs:
+        if 'id' not in attrs:
             attrs['id'] = "id_%s" % name
         render = super(ColorFieldWidget, self).render(name, value, attrs)
         return mark_safe("%s%s" % (render, self.render_script(attrs['id'])))
