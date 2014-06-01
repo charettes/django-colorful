@@ -1,5 +1,5 @@
 from django.db import models
-from unittest import TestCase
+from django.test import TestCase
 from django.core.exceptions import ValidationError
 
 from .widgets import ColorFieldWidget
@@ -26,11 +26,8 @@ class TestRBGColorField(TestCase):
         self.assertRaises(ValidationError, self.field.clean, '#GGG', None)
         self.assertRaises(ValidationError, self.field.clean, '#1234567', None)
 
-        with self.assertRaises(ValidationError) as error:
-            self.field.clean('#1234567', None)
-            self.assertEqual(
-                'Ensure this value has at most 7 characters (it has 8).',
-                error.exception.message)
+        self.assertRaisesMessage(ValidationError, 'Ensure this value has at most 7 characters (it has 8).',
+                                 self.field.clean, '#1234567', None)
 
     def test_validate_passes(self):
         self.assertEqual('#123445', self.field.clean('#123445', None))
