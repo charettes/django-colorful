@@ -8,9 +8,9 @@ from django.utils.safestring import mark_safe
 class ColorFieldWidget(TextInput):
     class Media:
         css = {
-            'all': ("%scolorful/colorPicker.css",)
+            'all': ("colorful/colorPicker.css",)
         }
-        js = ("%scolorful/jQuery.colorPicker.js",)
+        js = ("colorful/jQuery.colorPicker.js",)
 
     input_type = 'color'
 
