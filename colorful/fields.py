@@ -29,7 +29,7 @@ class RGBColorField(CharField):
         return super(RGBColorField, self).formfield(**kwargs)
 
     def south_field_triple(self):
-        return 'colorful.fields.RGBColorField', (), {}
+        return 'colorful.fields.RGBColorField', [], {}
 
     def deconstruct(self):
         name, path, args, kwargs = super(RGBColorField, self).deconstruct()
