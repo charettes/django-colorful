@@ -35,3 +35,9 @@ class RGBColorField(CharField):
         name, path, args, kwargs = super(RGBColorField, self).deconstruct()
         del kwargs['max_length']
         return name, path, args, kwargs
+
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^colorful\.fields\.RGBColorField"])
+except ImportError:
+    pass
