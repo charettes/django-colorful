@@ -8,6 +8,8 @@ from django.forms.fields import RegexField
 
 from .widgets import ColorFieldWidget
 
+from south.modelsinspector import introspector
+
 
 RGB_REGEX = re.compile('^#?((?:[0-F]{3}){1,2})$', re.IGNORECASE)
 
@@ -29,7 +31,8 @@ class RGBColorField(CharField):
         return super(RGBColorField, self).formfield(**kwargs)
 
     def south_field_triple(self):
-        return 'colorful.fields.RGBColorField', [], {}
+        args, kwargs = introspector(self)
+        return 'colorful.fields.RGBColorField', args, kwargs
 
     def deconstruct(self):
         name, path, args, kwargs = super(RGBColorField, self).deconstruct()
