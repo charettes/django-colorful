@@ -19,6 +19,7 @@ from ..widgets import ColorFieldWidget
 class TestRBGColorField(SimpleTestCase):
     def setUp(self):
         self.field = RGBColorField()
+        self.field_with_args = RGBColorField(default="#123445")
 
     def test_validate_fails(self):
         self.assertRaises(ValidationError, self.field.clean, '', None)
@@ -46,6 +47,11 @@ class TestRBGColorField(SimpleTestCase):
         field_class = getattr(sys.modules[module], cls)
         field_instance = field_class(*args, **kwargs)
         self.assertIsInstance(field_instance, self.field.__class__)
+
+    def test_south_field_triple_with_args(self):
+        path, args, kwargs = self.field_with_args.south_field_triple()
+        self.assertEqual(args, list())
+        self.assertEqual(kwargs, {'default': "u'#123445'", 'max_length': '7'})
 
     @skipUnless(hasattr(models.Field, 'deconstruct'),
                 'Unavailable field deconstruction.')
