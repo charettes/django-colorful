@@ -23,7 +23,7 @@ matrix:
     - env: REQUIREMENTS="https://github.com/django/django/archive/stable/1.7.x.tar.gz"
     - env: REQUIREMENTS="https://github.com/django/django/archive/master.tar.gz"
 
-install: pip install -q $REQUIREMENTS flake8 coveralls
+install: pip install -q $REQUIREMENTS South flake8 coveralls
 
 script: python -R -Wonce `which coverage` run `which django-admin.py` test colorful --pythonpath=`pwd` --settings=colorful.tests.settings -v2
 
