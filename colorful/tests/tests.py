@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 import sys
 # TODO: Remove when support for Python 2.6 is dropped
 if sys.version_info >= (2, 7):
-    from unittest import skipUnless
+    from unittest import skipIf, skipUnless
 else:
-    from django.utils.unittest import skipUnless
+    from django.utils.unittest import skipIf, skipUnless
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -14,6 +14,12 @@ from django.test import SimpleTestCase
 
 from ..fields import RGBColorField, RGB_REGEX
 from ..widgets import ColorFieldWidget
+
+
+try:
+    import south
+except ImportError:
+    south = None
 
 
 class TestRBGColorField(SimpleTestCase):
@@ -43,6 +49,7 @@ class TestRBGColorField(SimpleTestCase):
         self.assertEqual('123', self.field.clean('123', None))
         self.assertEqual('ABC', self.field.clean('ABC', None))
 
+    @skipIf(south is None, 'South is not installed.')
     def test_south_field_triple(self):
         path, args, kwargs = self.field.south_field_triple()
         module, cls = path.rsplit('.', 1)
