@@ -18,7 +18,7 @@ from ..widgets import ColorFieldWidget
 
 class TestRBGColorField(SimpleTestCase):
     def setUp(self):
-        self.field = RGBColorField()
+        self.field = RGBColorField(default='#123445')
 
     def test_validate_fails(self):
         self.assertRaises(ValidationError, self.field.clean, '', None)
@@ -29,8 +29,11 @@ class TestRBGColorField(SimpleTestCase):
         self.assertRaises(ValidationError, self.field.clean, '#GGG', None)
         self.assertRaises(ValidationError, self.field.clean, '#1234567', None)
 
-        self.assertRaisesMessage(ValidationError, 'Ensure this value has at most 7 characters (it has 8).',
-                                 self.field.clean, '#1234567', None)
+        self.assertRaisesMessage(
+            ValidationError,
+            'Ensure this value has at most 7 characters (it has 8).',
+            self.field.clean, '#1234567', None
+        )
 
     def test_validate_passes(self):
         self.assertEqual('#123445', self.field.clean('#123445', None))
@@ -43,9 +46,14 @@ class TestRBGColorField(SimpleTestCase):
     def test_south_field_triple(self):
         path, args, kwargs = self.field.south_field_triple()
         module, cls = path.rsplit('.', 1)
-        field_class = getattr(sys.modules[module], cls)
-        field_instance = field_class(*args, **kwargs)
-        self.assertIsInstance(field_instance, self.field.__class__)
+        field_cls = getattr(sys.modules[module], cls)
+        field_args = [eval(arg) for arg in args]
+        field_kwargs = dict(
+            (key, eval(kwarg)) for key, kwarg in kwargs.items()
+        )
+        field = field_cls(*field_args, **field_kwargs)
+        self.assertIsInstance(field, self.field.__class__)
+        self.assertEqual(field.default, self.field.default)
 
     @skipUnless(hasattr(models.Field, 'deconstruct'),
                 'Unavailable field deconstruction.')

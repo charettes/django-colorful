@@ -29,7 +29,10 @@ class RGBColorField(CharField):
         return super(RGBColorField, self).formfield(**kwargs)
 
     def south_field_triple(self):
-        return 'colorful.fields.RGBColorField', [], {}
+        from south.modelsinspector import introspector
+        args, kwargs = introspector(self)
+        del kwargs['max_length']
+        return 'colorful.fields.RGBColorField', args, kwargs
 
     def deconstruct(self):
         name, path, args, kwargs = super(RGBColorField, self).deconstruct()
