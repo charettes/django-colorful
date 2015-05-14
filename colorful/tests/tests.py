@@ -1,25 +1,14 @@
 from __future__ import unicode_literals
 
 import sys
-# TODO: Remove when support for Python 2.6 is dropped
-if sys.version_info >= (2, 7):
-    from unittest import skipIf, skipUnless
-else:
-    from django.utils.unittest import skipIf, skipUnless
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.db import models
 from django.test import SimpleTestCase
 
-from ..fields import RGBColorField, RGB_REGEX
+from ..fields import RGBColorField
+from ..forms import RGB_REGEX
 from ..widgets import ColorFieldWidget
-
-
-try:
-    import south
-except ImportError:
-    south = None
 
 
 class TestRBGColorField(SimpleTestCase):
@@ -49,21 +38,6 @@ class TestRBGColorField(SimpleTestCase):
         self.assertEqual('123', self.field.clean('123', None))
         self.assertEqual('ABC', self.field.clean('ABC', None))
 
-    @skipIf(south is None, 'South is not installed.')
-    def test_south_field_triple(self):
-        path, args, kwargs = self.field.south_field_triple()
-        module, cls = path.rsplit('.', 1)
-        field_cls = getattr(sys.modules[module], cls)
-        field_args = [eval(arg) for arg in args]
-        field_kwargs = dict(
-            (key, eval(kwarg)) for key, kwarg in kwargs.items()
-        )
-        field = field_cls(*field_args, **field_kwargs)
-        self.assertIsInstance(field, self.field.__class__)
-        self.assertEqual(field.default, self.field.default)
-
-    @skipUnless(hasattr(models.Field, 'deconstruct'),
-                'Unavailable field deconstruction.')
     def test_deconstruct(self):
         name, path, args, kwargs = self.field.deconstruct()
         self.assertIsNone(name)

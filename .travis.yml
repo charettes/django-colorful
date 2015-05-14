@@ -3,31 +3,26 @@ sudo: false
 language: python
 
 python:
-  - 2.6
   - 2.7
   - 3.2
   - 3.3
   - 3.4
 
 env:
-  - REQUIREMENTS="django>=1.5,<1.6 django-discover-runner"
-  - REQUIREMENTS="django>=1.6,<1.7"
-  - REQUIREMENTS="https://github.com/django/django/archive/stable/1.7.x.tar.gz"
+  - REQUIREMENTS="django>=1.7,<1.8"
+  - REQUIREMENTS="django>=1.8,<1.9"
   - REQUIREMENTS="https://github.com/django/django/archive/master.tar.gz"
 
 matrix:
   exclude:
-    - python: 2.6
-      env: REQUIREMENTS="https://github.com/django/django/archive/stable/1.7.x.tar.gz"
-    - python: 2.6
+    - python: 3.2
       env: REQUIREMENTS="https://github.com/django/django/archive/master.tar.gz"
   allow_failures:
-    - env: REQUIREMENTS="https://github.com/django/django/archive/stable/1.7.x.tar.gz"
     - env: REQUIREMENTS="https://github.com/django/django/archive/master.tar.gz"
 
 cache: pip
 
-install: pip install -q $REQUIREMENTS South flake8 coveralls
+install: pip install -q $REQUIREMENTS flake8 coveralls
 
 script: python -R -Wonce `which coverage` run `which django-admin.py` test colorful --pythonpath=`pwd` --settings=colorful.tests.settings -v2
 
