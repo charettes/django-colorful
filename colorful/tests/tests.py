@@ -66,7 +66,7 @@ class TestColorFieldWidget(SimpleTestCase):
                                 if (elm.type != 'color') $(elm).colorPicker();
                             });
                         });
-                    })('django' in window ? django.jQuery: jQuery);
+                    })('django' in window && django.jQuery ? django.jQuery: jQuery);
                 </script>
                 ''', widget.render('test', '#123456', {'id': 'id_color'}))
 
@@ -82,6 +82,6 @@ class TestColorFieldWidget(SimpleTestCase):
                                 if (elm.type != 'color') $(elm).colorPicker();
                             });
                         });
-                    })('django' in window ? django.jQuery: jQuery);
+                    })('django' in window && django.jQuery ? django.jQuery: jQuery);
                 </script>
                 ''', widget.render('test', '#123456'))
