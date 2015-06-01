@@ -22,7 +22,7 @@ class ColorFieldWidget(TextInput):
                                 if (elm.type != 'color') $(elm).colorPicker();
                             });
                         });
-                    })('django' in window ? django.jQuery: jQuery);
+                    })('django.jQuery' in window ? django.jQuery: jQuery);
                 </script>
                 ''' % id
 
