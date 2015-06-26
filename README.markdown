@@ -11,6 +11,21 @@ Written by Simon Charette
 Inspired by http://djangosnippets.org/snippets/1261/
 Built with https://github.com/laktek/really-simple-color-picker
 
+Installation
+------------
+
+From PyPI::
+
+    $ pip install django-colorful
+
+Or by downloading the source and running::
+
+    $ python setup.py install
+
+Latest git version::
+
+    $ pip install -e git+git://github.com/charettes/django-colorful.git#egg=django-colorful
+
 Usage
 -------------
 In order to use a color field you just have to add it to your model definition:
