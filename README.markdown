@@ -14,15 +14,15 @@ Built with https://github.com/laktek/really-simple-color-picker
 Installation
 ------------
 
-From PyPI::
+From PyPI:
 
     $ pip install django-colorful
 
-Or by downloading the source and running::
+Or by downloading the source and running:
 
     $ python setup.py install
 
-Latest git version::
+Latest git version:
 
     $ pip install -e git+git://github.com/charettes/django-colorful.git#egg=django-colorful
 
