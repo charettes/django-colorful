@@ -63,7 +63,7 @@ class TestColorFieldWidget(SimpleTestCase):
                         $(document).ready(function(){
                             $('#id_color').each(function(i, elm){
                                 // Make sure html5 color element is not replaced
-                                if (elm.type != 'color') $(elm).colorPicker();
+                                if (elm.type != 'color') $(elm).colorPicker({});
                             });
                         });
                     })('django' in window && django.jQuery ? django.jQuery: jQuery);
@@ -79,7 +79,23 @@ class TestColorFieldWidget(SimpleTestCase):
                         $(document).ready(function(){
                             $('#id_test').each(function(i, elm){
                                 // Make sure html5 color element is not replaced
-                                if (elm.type != 'color') $(elm).colorPicker();
+                                if (elm.type != 'color') $(elm).colorPicker({});
+                            });
+                        });
+                    })('django' in window && django.jQuery ? django.jQuery: jQuery);
+                </script>
+                ''', widget.render('test', '#123456'))
+
+    def test_render_with_colors(self):
+        widget = ColorFieldWidget(colors=['#ffffff', '#223344', '#557799'])
+        self.assertIn('<input id="id_test" list="datalist_for_id_test" name="test" type="color" value="#123456" />',
+                      widget.render('test', '#123456'))
+        self.assertIn('''<script type="text/javascript">
+                    (function($){
+                        $(document).ready(function(){
+                            $('#id_test').each(function(i, elm){
+                                // Make sure html5 color element is not replaced
+                                if (elm.type != 'color') $(elm).colorPicker({"colors": ["ffffff", "223344", "557799"]});
                             });
                         });
                     })('django' in window && django.jQuery ? django.jQuery: jQuery);
