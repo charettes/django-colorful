@@ -36,7 +36,7 @@ In order to use a color field you just have to add it to your model definition:
     class Tag(models.Model)
       color = RGBColorField()
 
-There's the keyword argument `colors` which can set to a list of colors that
+There's the keyword argument `colors` which can be set to a list of colors that
 should be visible as preset color palette:
 
     color = RGBColorField(colors=['#FF0000', '#00FF00', '#0000FF'])
