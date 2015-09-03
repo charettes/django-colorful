@@ -2,8 +2,12 @@ from __future__ import unicode_literals
 
 import sys
 
+from unittest.mock import patch
+
 from django import forms
+from django.core.checks import Error
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.db.models.fields import NOT_PROVIDED
 from django.test import SimpleTestCase
 
@@ -65,6 +69,40 @@ class TestRBGColorField(SimpleTestCase):
         self.assertIsInstance(formfield, forms.RegexField)
         self.assertIsInstance(formfield.widget, ColorFieldWidget)
         self.assertEqual(formfield.regex, RGB_REGEX)
+
+    @patch('django.db.models.CharField.check')
+    def test_check(self, charfield_check):
+        # do not test django's charfield checks
+        charfield_check.side_effect = list
+
+        # fine fields from setUp
+        self.assertEqual(self.field.check(), [])
+        self.assertEqual(self.field_with_colors.check(), [])
+
+        # check type error
+        class ColorsTypeSystemCheckTestModel(models.Model):
+            color = RGBColorField(colors='#333,#ff00FF')
+        self.assertEqual(ColorsTypeSystemCheckTestModel.check(), [
+            Error(
+                'colors is not iterable',
+                hint='Define the colors param as list of strings.',
+                obj=ColorsTypeSystemCheckTestModel._meta.get_field('color'),
+                id='colorful.E001'
+            )
+        ])
+
+        # check item error
+        class ColorsItemSystemCheckTestModel(models.Model):
+            color = RGBColorField(colors=['#'])
+        self.assertEqual(ColorsItemSystemCheckTestModel.check(), [
+            Error(
+                'colors item validation error',
+                hint='Each item of the colors param must be a valid color '
+                     'string itself.',
+                obj=ColorsItemSystemCheckTestModel._meta.get_field('color'),
+                id='colorful.E002'
+            )
+        ])
 
 
 class TestColorFieldWidget(SimpleTestCase):
