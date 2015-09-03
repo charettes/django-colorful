@@ -10,6 +10,7 @@ from . import forms, widgets
 
 class RGBColorField(CharField):
     """Field for database models"""
+    widget = widgets.ColorFieldWidget
     default_validators = [RegexValidator(regex=forms.RGB_REGEX)]
 
     def __init__(self, colors=None, *args, **kwargs):
@@ -20,7 +21,7 @@ class RGBColorField(CharField):
     def formfield(self, **kwargs):
         kwargs.update({
             'form_class': forms.RGBColorField,
-            'widget': widgets.ColorFieldWidget(colors=self.colors),
+            'widget': self.widget(colors=self.colors),
         })
         return super(RGBColorField, self).formfield(**kwargs)
 
