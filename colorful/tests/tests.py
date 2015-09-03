@@ -2,7 +2,10 @@ from __future__ import unicode_literals
 
 import sys
 
-from unittest.mock import patch
+try:
+    from unittest.mock import patch
+except ImportError:  # py < 3.3
+    from mock import patch
 
 from django import forms
 from django.core.checks import Error
