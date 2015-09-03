@@ -22,7 +22,7 @@ matrix:
 
 cache: pip
 
-install: pip install $REQUIREMENTS flake8 coveralls
+install: pip install $REQUIREMENTS mock flake8 coveralls
 
 script: python -R -Wonce `which coverage` run `which django-admin.py` test colorful --pythonpath=`pwd` --settings=colorful.tests.settings -v2
 
