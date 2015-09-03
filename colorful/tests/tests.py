@@ -4,6 +4,7 @@ import sys
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db.models.fields import NOT_PROVIDED
 from django.test import SimpleTestCase
 
 from ..fields import RGBColorField
@@ -14,6 +15,7 @@ from ..widgets import ColorFieldWidget
 class TestRBGColorField(SimpleTestCase):
     def setUp(self):
         self.field = RGBColorField(default='#123445')
+        self.field_with_colors = RGBColorField(colors=['#123445', '#000'])
 
     def test_validate_fails(self):
         self.assertRaises(ValidationError, self.field.clean, '', None)
@@ -45,6 +47,18 @@ class TestRBGColorField(SimpleTestCase):
         field_class = getattr(sys.modules[module], cls)
         field_instance = field_class(*args, **kwargs)
         self.assertIsInstance(field_instance, self.field.__class__)
+        self.assertEqual(self.field.default, field_instance.default)
+        self.assertEqual(self.field.colors, None)
+
+    def test_deconstruct_with_colors(self):
+        name, path, args, kwargs = self.field_with_colors.deconstruct()
+        self.assertIsNone(name)
+        module, cls = path.rsplit('.', 1)
+        field_class = getattr(sys.modules[module], cls)
+        field_instance = field_class(*args, **kwargs)
+        self.assertIsInstance(field_instance, self.field_with_colors.__class__)
+        self.assertEqual(self.field_with_colors.default, NOT_PROVIDED)
+        self.assertEqual(self.field_with_colors.colors, field_instance.colors)
 
     def test_formfield(self):
         formfield = self.field.formfield()

@@ -24,5 +24,7 @@ class RGBColorField(CharField):
 
     def deconstruct(self):
         name, path, args, kwargs = super(RGBColorField, self).deconstruct()
+        if self.colors is not None:
+            kwargs['colors'] = self.colors
         del kwargs['max_length']
         return name, path, args, kwargs
