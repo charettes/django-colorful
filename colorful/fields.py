@@ -34,7 +34,7 @@ class RGBColorField(CharField):
     def check(self, **kwargs):
         errors = super(RGBColorField, self).check(**kwargs)
         if self.colors is not None:
-            # check colors param reusing validator
+            # check colors type
             if not isinstance(self.colors, (list, tuple)):
                 errors.append(Error(
                     'colors is not iterable',
