@@ -349,4 +349,4 @@
         showHexField: true
     };
 
-})(jQuery);
+})('django' in window && django.jQuery ? django.jQuery: jQuery);
