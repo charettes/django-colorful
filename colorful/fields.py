@@ -13,8 +13,8 @@ class RGBColorField(CharField):
     widget = widgets.ColorFieldWidget
     default_validators = [RegexValidator(regex=forms.RGB_REGEX)]
 
-    def __init__(self, colors=None, *args, **kwargs):
-        self.colors = colors
+    def __init__(self, *args, **kwargs):
+        self.colors = kwargs.pop('colors', None)
         kwargs['max_length'] = 7
         super(RGBColorField, self).__init__(*args, **kwargs)
 

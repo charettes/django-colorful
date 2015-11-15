@@ -21,8 +21,8 @@ from ..widgets import ColorFieldWidget
 
 class TestRBGColorField(SimpleTestCase):
     def setUp(self):
-        self.field = RGBColorField(default='#123445')
-        self.field_with_colors = RGBColorField(colors=['#123445', '#000'])
+        self.field = RGBColorField('verbose_name', default='#123445')
+        self.field_with_colors = RGBColorField('verbose_name', colors=['#123445', '#000'])
 
     def test_validate_fails(self):
         self.assertRaises(ValidationError, self.field.clean, '', None)
@@ -54,8 +54,9 @@ class TestRBGColorField(SimpleTestCase):
         field_class = getattr(sys.modules[module], cls)
         field_instance = field_class(*args, **kwargs)
         self.assertIsInstance(field_instance, self.field.__class__)
-        self.assertEqual(self.field.default, field_instance.default)
-        self.assertEqual(self.field.colors, None)
+        self.assertEqual(field_instance.verbose_name, self.field.verbose_name)
+        self.assertEqual(field_instance.default, self.field.default)
+        self.assertIsNone(field_instance.colors)
 
     def test_deconstruct_with_colors(self):
         name, path, args, kwargs = self.field_with_colors.deconstruct()
@@ -64,8 +65,9 @@ class TestRBGColorField(SimpleTestCase):
         field_class = getattr(sys.modules[module], cls)
         field_instance = field_class(*args, **kwargs)
         self.assertIsInstance(field_instance, self.field_with_colors.__class__)
-        self.assertEqual(self.field_with_colors.default, NOT_PROVIDED)
-        self.assertEqual(self.field_with_colors.colors, field_instance.colors)
+        self.assertEqual(field_instance.verbose_name, self.field.verbose_name)
+        self.assertEqual(field_instance.default, NOT_PROVIDED)
+        self.assertEqual(field_instance.colors, field_instance.colors)
 
     def test_formfield(self):
         formfield = self.field.formfield()
