@@ -18,6 +18,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     license='MIT License',
+    keywords=['django color field'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
