@@ -3,14 +3,12 @@ from setuptools import setup, find_packages
 
 from colorful import VERSION
 
-github_url = 'https://github.com/charettes/django-colorful'
-
 setup(
     name='django-colorful',
     version='.'.join(str(v) for v in VERSION),
     description='An extension to the Django web framework that provides database and form color fields',
-    long_description=open('README.markdown').read(),
-    url=github_url,
+    long_description=open('README.rst').read(),
+    url='https://github.com/charettes/django-colorful',
     author='Simon Charette',
     author_email='charette.s@gmail.com',
     install_requires=[
