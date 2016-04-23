@@ -1,4 +1,4 @@
 [run]
 source = colorful
 branch = True
-omit = colorful/*tests*
+omit = tests

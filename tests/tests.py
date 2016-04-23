@@ -14,9 +14,9 @@ from django.db import models
 from django.db.models.fields import NOT_PROVIDED
 from django.test import SimpleTestCase
 
-from ..fields import RGBColorField
-from ..forms import RGB_REGEX
-from ..widgets import ColorFieldWidget
+from colorful.fields import RGBColorField
+from colorful.forms import RGB_REGEX
+from colorful.widgets import ColorFieldWidget
 
 
 class TestRBGColorField(SimpleTestCase):
@@ -87,6 +87,10 @@ class TestRBGColorField(SimpleTestCase):
         # check type error
         class ColorsTypeSystemCheckTestModel(models.Model):
             color = RGBColorField(colors='#333,#ff00FF')
+
+            class Meta:
+                app_label = 'colorful'
+
         self.assertEqual(ColorsTypeSystemCheckTestModel.check(), [
             Error(
                 'colors is not iterable',
@@ -99,6 +103,10 @@ class TestRBGColorField(SimpleTestCase):
         # check item error
         class ColorsItemSystemCheckTestModel(models.Model):
             color = RGBColorField(colors=['#'])
+
+            class Meta:
+                app_label = 'colorful'
+
         self.assertEqual(ColorsItemSystemCheckTestModel.check(), [
             Error(
                 'colors item validation error',

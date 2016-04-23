@@ -24,7 +24,7 @@ cache: pip
 
 install: pip install $REQUIREMENTS "coverage<4.0" mock flake8 coveralls
 
-script: python -R -Wonce `which coverage` run `which django-admin.py` test colorful --pythonpath=`pwd` --settings=colorful.tests.settings -v2
+script: python -R -Wonce `which coverage` run `which django-admin.py` test --pythonpath=`pwd` --settings=tests.settings -v2
 
 after_success:
   - flake8
