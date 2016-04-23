@@ -170,4 +170,4 @@ class TestColorFieldWidget(SimpleTestCase):
                         });
                     })('django' in window && django.jQuery ? django.jQuery: jQuery);
                 </script>
-                ''', widget.render('test', '#123456'))
+                ''', widget.render('test', '#123456'))  # NOQA
