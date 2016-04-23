@@ -8,6 +8,7 @@ except ImportError:  # py < 3.3
     from mock import patch
 
 from django import forms
+from django.apps.registry import Apps
 from django.core.checks import Error
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -77,6 +78,8 @@ class TestRBGColorField(SimpleTestCase):
 
     @patch('django.db.models.CharField.check')
     def test_check(self, charfield_check):
+        test_apps = Apps()
+
         # do not test django's charfield checks
         charfield_check.side_effect = list
 
@@ -89,6 +92,7 @@ class TestRBGColorField(SimpleTestCase):
             color = RGBColorField(colors='#333,#ff00FF')
 
             class Meta:
+                apps = test_apps
                 app_label = 'colorful'
 
         self.assertEqual(ColorsTypeSystemCheckTestModel.check(), [
@@ -105,6 +109,7 @@ class TestRBGColorField(SimpleTestCase):
             color = RGBColorField(colors=['#'])
 
             class Meta:
+                apps = test_apps
                 app_label = 'colorful'
 
         self.assertEqual(ColorsItemSystemCheckTestModel.check(), [
