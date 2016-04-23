@@ -4,6 +4,7 @@ language: python
 
 env:
   - TOXENV=flake8
+  - TOXENV=isort
   - TOXENV=py27-1.8
   - TOXENV=py27-1.9
   - TOXENV=py27-master

@@ -1,11 +1,10 @@
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import re
 
 from django.forms import RegexField
 
 from .widgets import ColorFieldWidget
-
 
 RGB_REGEX = re.compile('^#?((?:[0-F]{3}){1,2})$', re.IGNORECASE)
 

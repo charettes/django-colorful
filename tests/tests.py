@@ -2,11 +2,6 @@ from __future__ import unicode_literals
 
 import sys
 
-try:
-    from unittest.mock import patch
-except ImportError:  # py < 3.3
-    from mock import patch
-
 from django import forms
 from django.apps.registry import Apps
 from django.core.checks import Error
@@ -18,6 +13,11 @@ from django.test import SimpleTestCase
 from colorful.fields import RGBColorField
 from colorful.forms import RGB_REGEX
 from colorful.widgets import ColorFieldWidget
+
+try:
+    from unittest.mock import patch
+except ImportError:  # py < 3.3
+    from mock import patch
 
 
 class TestRBGColorField(SimpleTestCase):
