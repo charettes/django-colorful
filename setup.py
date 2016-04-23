@@ -13,7 +13,7 @@ setup(
     url=github_url,
     author='Simon Charette',
     author_email='charette.s@gmail.com',
-    requires=[
+    install_requires=[
         'Django>=1.8',
     ],
     packages=find_packages(),

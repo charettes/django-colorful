@@ -32,3 +32,4 @@ build/
 dist/
 django_colorful.egg-info
 .coverage
+.tox
