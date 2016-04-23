@@ -9,7 +9,6 @@ python:
   - 3.4
 
 env:
-  - REQUIREMENTS="django>=1.7,<1.8"
   - REQUIREMENTS="django>=1.8,<1.9"
   - REQUIREMENTS="https://github.com/django/django/archive/master.tar.gz"
 
