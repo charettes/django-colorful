@@ -45,4 +45,10 @@ be set to a list of colors that should be visible as preset color palette:
     color = RGBColorField(colors=['#FF0000', '#00FF00', '#0000FF'])
 
 The ``ColorFieldWidget`` should take care of providing a JavaScript based shim
-on browsers that don't support the HTML5 color input .
+on browsers that don't support the HTML5 color input.
+
+.. note:: 
+    To enable HTML5 color input with `Django Grappelli`_ ensure that 
+    ``GRAPPELLI_CLEAN_INPUT_TYPES`` is set to ``False`` in your settings file.
+
+.. _Django Grappelli: https://github.com/sehmaschine/django-grappelli
