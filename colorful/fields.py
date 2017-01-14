@@ -18,6 +18,9 @@ class RGBColorField(CharField):
         kwargs['max_length'] = 7
         super(RGBColorField, self).__init__(*args, **kwargs)
 
+        if self.blank:
+            self.widget = widgets.NullableColorFieldWidget
+
     def formfield(self, **kwargs):
         kwargs.update({
             'form_class': forms.RGBColorField,
