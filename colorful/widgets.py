@@ -8,10 +8,10 @@ from django.utils.safestring import mark_safe
 
 class NullableColorFieldWidget(MultiWidget):
     def __init__(self, colors=None, attrs=None):
-        _widgets = (
-            CheckboxInput(),
+        _widgets = [
+            CheckboxInput(attrs={'checked': 'checked', 'style': 'display:none'}),
             ColorFieldWidget(colors, attrs)
-        )
+        ]
         super(NullableColorFieldWidget, self).__init__(_widgets, attrs)
 
     def decompress(self, value):
@@ -27,6 +27,29 @@ class NullableColorFieldWidget(MultiWidget):
             return None
         else:
             return color
+
+    @staticmethod
+    def render_script(color_id, checkbox_id):
+        return '''
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("#%s").on("click", function() {
+                            $("#%s").prop("checked", false);
+                        });
+                    });
+                </script>
+                ''' % (color_id, checkbox_id)
+
+    def render(self, name, value, attrs=None):
+        parts = []
+        checkbox_id = "id_%s_0" % name
+        color_id = "id_%s_1" % name
+        if value:
+            self.widgets[0].attrs['checked'] = ''
+        parts.append(super(NullableColorFieldWidget, self).render(name, value, attrs))
+        parts.append(self.render_script(color_id, checkbox_id))
+        return mark_safe(''.join(parts))
 
 
 class ColorFieldWidget(TextInput):
