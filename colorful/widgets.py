@@ -2,8 +2,31 @@ from __future__ import unicode_literals
 
 import json
 
-from django.forms.widgets import TextInput
+from django.forms.widgets import TextInput, MultiWidget, CheckboxInput
 from django.utils.safestring import mark_safe
+
+
+class NullableColorFieldWidget(MultiWidget):
+    def __init__(self, colors=None, attrs=None):
+        _widgets = (
+            CheckboxInput(),
+            ColorFieldWidget(colors, attrs)
+        )
+        super(NullableColorFieldWidget, self).__init__(_widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return [True, value]
+        return [False, '']
+
+    def value_from_datadict(self, data, files, name):
+        blank = self.widgets[0].value_from_datadict(data, files, name + '_0')
+        color = self.widgets[1].value_from_datadict(data, files, name + '_1')
+
+        if blank:
+            return None
+        else:
+            return color
 
 
 class ColorFieldWidget(TextInput):
