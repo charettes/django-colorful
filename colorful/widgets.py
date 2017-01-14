@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import json
 
-from django.forms.widgets import TextInput, MultiWidget, CheckboxInput
+from django.forms.widgets import CheckboxInput, MultiWidget, TextInput
 from django.utils.safestring import mark_safe
 
 
