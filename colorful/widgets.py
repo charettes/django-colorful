@@ -31,11 +31,10 @@ class NullableColorFieldWidget(MultiWidget):
     @staticmethod
     def render_script(color_id, checkbox_id):
         return '''
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
                 <script type="text/javascript">
-                    $(document).ready(function() {
-                        $("#%s").on("click", function() {
-                            $("#%s").prop("checked", false);
+                    window.addEventListener('load', function() {
+                        document.getElementById('%s').addEventListener('click', function() {
+                            document.getElementById('%s').checked = false;
                         });
                     });
                 </script>
