@@ -41,13 +41,13 @@ class NullableColorFieldWidget(MultiWidget):
                 </script>
                 ''' % (color_id, checkbox_id)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         parts = []
         checkbox_id = "id_%s_0" % name
         color_id = "id_%s_1" % name
         if value:
             self.widgets[0].attrs['checked'] = ''
-        parts.append(super(NullableColorFieldWidget, self).render(name, value, attrs))
+        parts.append(super(NullableColorFieldWidget, self).render(name, value, attrs, renderer))
         parts.append(self.render_script(color_id, checkbox_id))
         return mark_safe(''.join(parts))
 
