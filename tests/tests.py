@@ -126,8 +126,10 @@ class TestRBGColorField(SimpleTestCase):
 class TestColorFieldWidget(SimpleTestCase):
     def test_render_with_id(self):
         widget = ColorFieldWidget()
-        self.assertIn('<input id="id_color" name="test" type="color" value="#123456" />',
-                      widget.render('test', '#123456', {'id': 'id_color'}))
+        self.assertInHTML(
+            '<input id="id_color" name="test" type="color" value="#123456" />',
+            widget.render('test', '#123456', {'id': 'id_color'})
+        )
         self.assertIn('''<script type="text/javascript">
                     (function($){
                         $(document).ready(function(){
@@ -142,8 +144,10 @@ class TestColorFieldWidget(SimpleTestCase):
 
     def test_render_no_id(self):
         widget = ColorFieldWidget()
-        self.assertIn('<input id="id_test" name="test" type="color" value="#123456" />',
-                      widget.render('test', '#123456'))
+        self.assertInHTML(
+            '<input id="id_test" name="test" type="color" value="#123456" />',
+            widget.render('test', '#123456')
+        )
         self.assertIn('''<script type="text/javascript">
                     (function($){
                         $(document).ready(function(){
@@ -158,8 +162,10 @@ class TestColorFieldWidget(SimpleTestCase):
 
     def test_render_with_colors(self):
         widget = ColorFieldWidget(colors=['#ffffff', '#223344', '#557799'])
-        self.assertIn('<input id="id_test" list="datalist_for_id_test" name="test" type="color" value="#123456" />',
-                      widget.render('test', '#123456'))
+        self.assertInHTML(
+            '<input id="id_test" list="datalist_for_id_test" name="test" type="color" value="#123456" />',
+            widget.render('test', '#123456')
+        )
         self.assertIn('''<script type="text/javascript">
                     (function($){
                         $(document).ready(function(){
