@@ -1,4 +1,5 @@
-v.colorPicker-picker {
+div.colorPicker-picker {
+    display: inline-block;
     height: 16px;
     width: 16px;
     padding: 0 !important;
