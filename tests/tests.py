@@ -12,7 +12,7 @@ from django.test import SimpleTestCase
 
 from colorful.fields import RGBColorField
 from colorful.forms import RGB_REGEX
-from colorful.widgets import ColorFieldWidget
+from colorful.widgets import ColorFieldWidget, NullableColorFieldWidget
 
 try:
     from unittest.mock import patch
@@ -24,6 +24,7 @@ class TestRBGColorField(SimpleTestCase):
     def setUp(self):
         self.field = RGBColorField('verbose_name', default='#123445')
         self.field_with_colors = RGBColorField('verbose_name', colors=['#123445', '#000'])
+        self.blank_field = RGBColorField('verbose_name', blank=True)
 
     def test_validate_fails(self):
         self.assertRaises(ValidationError, self.field.clean, '', None)
@@ -122,6 +123,14 @@ class TestRBGColorField(SimpleTestCase):
             )
         ])
 
+    def test_widget_selection(self):
+        """
+        When a RGBColorField has blank=True, the NullableColorFieldWidget should be used.
+        When a RGBColorField has blank=False, the ColorFieldWidget should be used.
+        """
+        self.assertEqual(self.field.widget, ColorFieldWidget)
+        self.assertEqual(self.blank_field.widget, NullableColorFieldWidget)
+
 
 class TestColorFieldWidget(SimpleTestCase):
     def test_render_with_id(self):
@@ -177,3 +186,30 @@ class TestColorFieldWidget(SimpleTestCase):
                     })('django' in window && django.jQuery ? django.jQuery: jQuery);
                 </script>
                 ''', widget.render('test', '#123456'))  # NOQA
+
+
+class TestNullableColorFieldWidget(SimpleTestCase):
+
+    def test_render_blank(self):
+        widget = NullableColorFieldWidget()
+
+        self.assertInHTML(
+            '<input type="checkbox" name="test_0" checked="checked" style="display:none" />',
+            widget.render('test', None)
+        )
+        self.assertInHTML(
+            '<input name="test_1" type="color">',
+            widget.render('test', None)
+        )
+
+    def test_render_with_value(self):
+        widget = NullableColorFieldWidget()
+
+        self.assertInHTML(
+            '<input type="checkbox" name="test_0" style="display:none" checked />',
+            widget.render('test', '#FFFFFF')
+        )
+        self.assertInHTML(
+            '<input name="test_1" type="color" value="#FFFFFF">',
+            widget.render('test', '#FFFFFF')
+        )
