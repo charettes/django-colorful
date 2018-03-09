@@ -202,6 +202,18 @@ class TestNullableColorFieldWidget(SimpleTestCase):
             widget.render('test', None)
         )
 
+    def test_render_with_id(self):
+        widget = NullableColorFieldWidget()
+
+        self.assertInHTML(
+            '<input type="checkbox" name="test_0" checked="checked" id="id_color_0" style="display:none" />',
+            widget.render('test', None, {'id': 'id_color'})
+        )
+        self.assertInHTML(
+            '<input type="color" name="test_1" id="id_color_1" />',
+            widget.render('test', None, {'id': 'id_color'})
+        )
+
     def test_render_with_value(self):
         widget = NullableColorFieldWidget()
 
