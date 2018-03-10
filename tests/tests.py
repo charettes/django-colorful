@@ -227,3 +227,16 @@ class TestNullableColorFieldWidget(SimpleTestCase):
             '<input type="color" name="test_1" value="#FFFFFF" />',
             widget.render('test', '#FFFFFF')
         )
+
+    def test_value_from_datadict(self):
+        widget = NullableColorFieldWidget()
+
+        self.assertEqual(
+            widget.value_from_datadict({'test_0': True, 'test_1': '#000000'}, {}, 'test'),
+            None
+        )
+
+        self.assertEqual(
+            widget.value_from_datadict({'test_0': False, 'test_1': '#FFFFFF'}, {}, 'test'),
+            '#FFFFFF'
+        )
