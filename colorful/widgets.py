@@ -16,8 +16,8 @@ class NullableColorFieldWidget(MultiWidget):
 
     def decompress(self, value):
         if value:
-            return [True, value]
-        return [False, '']
+            return [False, value]
+        return [True, '']
 
     def value_from_datadict(self, data, files, name):
         blank = self.widgets[0].value_from_datadict(data, files, name + '_0')

@@ -197,8 +197,9 @@ class TestNullableColorFieldWidget(SimpleTestCase):
             '<input type="checkbox" name="test_0" checked="checked" style="display:none" />',
             widget.render('test', None)
         )
+
         self.assertInHTML(
-            '<input name="test_1" type="color">',
+            '<input name="test_1" type="color" checked />',
             widget.render('test', None)
         )
 
@@ -216,9 +217,8 @@ class TestNullableColorFieldWidget(SimpleTestCase):
 
     def test_render_with_value(self):
         widget = NullableColorFieldWidget()
-
         self.assertInHTML(
-            '<input type="checkbox" name="test_0" style="display:none" checked />',
+            '<input type="checkbox" name="test_0" style="display:none" />',
             widget.render('test', '#FFFFFF')
         )
         self.assertInHTML(
