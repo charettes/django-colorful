@@ -42,7 +42,7 @@ class ColorFieldWidget(TextInput):
                 </script>
                 ''' % (id, json.dumps(options))
 
-    def render(self, name, value, attrs={}):
+    def render(self, name, value, renderer=None, attrs={}):
         parts = []
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name

@@ -128,7 +128,7 @@ class TestColorFieldWidget(SimpleTestCase):
         widget = ColorFieldWidget()
         self.assertInHTML(
             '<input id="id_color" name="test" type="color" value="#123456" />',
-            widget.render('test', '#123456', {'id': 'id_color'})
+            widget.render('test', '#123456', attrs={'id': 'id_color'})
         )
         self.assertIn('''<script type="text/javascript">
                     (function($){
@@ -140,7 +140,7 @@ class TestColorFieldWidget(SimpleTestCase):
                         });
                     })('django' in window && django.jQuery ? django.jQuery: jQuery);
                 </script>
-                ''', widget.render('test', '#123456', {'id': 'id_color'}))
+                ''', widget.render('test', '#123456', attrs={'id': 'id_color'}))
 
     def test_render_no_id(self):
         widget = ColorFieldWidget()
