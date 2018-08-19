@@ -52,3 +52,12 @@ script:
 - tox
 after_success:
 - if [ -f .coverage ]; then coveralls; fi
+deploy:
+  provider: pypi
+  user: charettes
+  password:
+    secure: TqjFJRs1J2Ui2qudz79+Po4z87VQukjbc1VAbQ3DRC/1EDbWD0qJNfde2g7fLVIfo5AA/dLAaLStYyVpOunWTfLYHGGM8OCjDa3JiQkAFGxsNcsEE7PhWUrCwjXLf8fJl9rOc8tdjsAjTP6zAc/KzHy6NCdhUmtKDDSQpUxVfvQ=
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
+condition: "$TOXENV = py27-1.11"
