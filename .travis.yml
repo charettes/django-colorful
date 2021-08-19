@@ -1,5 +1,4 @@
 dist: bionic
-sudo: false
 language: python
 cache: pip
 matrix:
