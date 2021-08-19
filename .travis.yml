@@ -30,12 +30,8 @@ matrix:
     env: TOXENV=py36-master
   - python: 3.7
     env: TOXENV=py37-2.0
-    dist: xenial
-    sudo: true
   - python: 3.7
     env: TOXENV=py37-2.1
-    dist: xenial
-    sudo: true
   - python: 3.7
     env: TOXENV=py37-2.2
   - python: 3.7
@@ -44,16 +40,10 @@ matrix:
     env: TOXENV=py37-3.1
   - python: 3.7
     env: TOXENV=py37-master
-    dist: xenial
-    sudo: true
   - python: 3.7
     env: TOXENV=flake8
-    dist: xenial
-    sudo: true
   - python: 3.7
     env: TOXENV=isort
-    dist: xenial
-    sudo: true
   allow_failures:
   - env: TOXENV=py35-master
   - env: TOXENV=py36-master
