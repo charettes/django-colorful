@@ -1,64 +1,48 @@
-dist: xenial
-sudo: false
+dist: bionic
 language: python
 cache: pip
 matrix:
   fast_finish: true
   include:
-  - python: 2.7
-    env: TOXENV=py27-1.11
-  - python: 3.5
-    env: TOXENV=py35-1.11
-  - python: 3.5
-    env: TOXENV=py35-2.0
-  - python: 3.5
-    env: TOXENV=py35-2.1
-  - python: 3.5
-    env: TOXENV=py35-2.2
-  - python: 3.6
-    env: TOXENV=py36-1.11
-  - python: 3.6
-    env: TOXENV=py36-2.0
-  - python: 3.6
-    env: TOXENV=py36-2.1
   - python: 3.6
     env: TOXENV=py36-2.2
   - python: 3.6
-    env: TOXENV=py36-3.0
-  - python: 3.6
     env: TOXENV=py36-3.1
   - python: 3.6
-    env: TOXENV=py36-master
-  - python: 3.7
-    env: TOXENV=py37-2.0
-    dist: xenial
-    sudo: true
-  - python: 3.7
-    env: TOXENV=py37-2.1
-    dist: xenial
-    sudo: true
+    env: TOXENV=py36-3.2
+
   - python: 3.7
     env: TOXENV=py37-2.2
   - python: 3.7
-    env: TOXENV=py37-3.0
-  - python: 3.7
     env: TOXENV=py37-3.1
   - python: 3.7
-    env: TOXENV=py37-master
-    dist: xenial
-    sudo: true
+    env: TOXENV=py37-3.2
+
+  - python: 3.8
+    env: TOXENV=py38-2.2
+  - python: 3.8
+    env: TOXENV=py38-3.1
+  - python: 3.8
+    env: TOXENV=py38-3.2
+  - python: 3.8
+    env: TOXENV=py38-master
+
+  - python: 3.9
+    env: TOXENV=py39-2.2
+  - python: 3.9
+    env: TOXENV=py39-3.1
+  - python: 3.9
+    env: TOXENV=py39-3.2
+  - python: 3.9
+    env: TOXENV=py39-master
+
   - python: 3.7
     env: TOXENV=flake8
-    dist: xenial
-    sudo: true
   - python: 3.7
     env: TOXENV=isort
-    dist: xenial
-    sudo: true
   allow_failures:
-  - env: TOXENV=py35-master
-  - env: TOXENV=py36-master
-  - env: TOXENV=py37-master
+  - env: TOXENV=py38-master
+  - env: TOXENV=py39-master
 install:
 - pip install tox coveralls
 script:
@@ -73,4 +57,4 @@ deploy:
   distributions: sdist bdist_wheel
   on:
     tags: true
-condition: "$TOXENV = py27-1.11"
+condition: "$TOXENV = py36-2.2"
