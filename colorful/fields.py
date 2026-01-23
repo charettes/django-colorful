@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.core.checks import Error
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -16,24 +14,24 @@ class RGBColorField(CharField):
     def __init__(self, *args, **kwargs):
         self.colors = kwargs.pop('colors', None)
         kwargs['max_length'] = 7
-        super(RGBColorField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):
         kwargs.update({
             'form_class': forms.RGBColorField,
             'widget': self.widget(colors=self.colors),
         })
-        return super(RGBColorField, self).formfield(**kwargs)
+        return super().formfield(**kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super(RGBColorField, self).deconstruct()
+        name, path, args, kwargs = super().deconstruct()
         if self.colors is not None:
             kwargs['colors'] = self.colors
         del kwargs['max_length']
         return name, path, args, kwargs
 
     def check(self, **kwargs):
-        errors = super(RGBColorField, self).check(**kwargs)
+        errors = super().check(**kwargs)
         if self.colors is not None:
             if not isinstance(self.colors, (list, tuple)):
                 errors.append(Error(

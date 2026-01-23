@@ -5,8 +5,9 @@ django-colorful
 An extension to the Django web framework that provides a database and form
 field to accept and store colors in the RGB format.
 
-.. image:: https://travis-ci.org/charettes/django-colorful.svg?branch=master
-    :target: https://travis-ci.org/charettes/django-colorful
+.. image:: https://github.com/charettes/django-colorful/workflows/Test/badge.svg
+   :target: https://github.com/charettes/django-colorful/actions
+   :alt: GitHub Actions
 
 .. image:: https://coveralls.io/repos/charettes/django-colorful/badge.svg?branch=master&service=github
     :target: https://coveralls.io/github/charettes/django-colorful?branch=master

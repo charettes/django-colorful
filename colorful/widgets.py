@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import json
 
 from django.forms.widgets import TextInput
@@ -17,7 +15,7 @@ class ColorFieldWidget(TextInput):
 
     def __init__(self, colors=None, attrs=None):
         self.colors = colors
-        super(ColorFieldWidget, self).__init__(attrs)
+        super().__init__(attrs)
 
     def render_datalist(self, list_id):
         return ''.join([
@@ -49,6 +47,6 @@ class ColorFieldWidget(TextInput):
         if self.colors:
             attrs['list'] = 'datalist_for_%s' % attrs['id']
             parts.append(self.render_datalist(attrs['list']))
-        parts.append(super(ColorFieldWidget, self).render(name, value, attrs))
+        parts.append(super().render(name, value, attrs))
         parts.append(self.render_script(attrs['id']))
         return mark_safe(''.join(parts))
